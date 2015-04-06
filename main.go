@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	_ "github.ocm/uub/srbot/bot"
+	_ "github.com/uub/srbot/bot"
 )
 
 func main() {
