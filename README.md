@@ -14,12 +14,12 @@ https://www.reddit.com/r/SUBREDDIT_NAME/wiki/bot/sticky/PAGE_NAME
 
 PAGE_NAME | format | description
 --- | --- | ----
-title | Text | タイトルの/r/と日付の間
-desc | Markdown | 本文の/r/直後
-linkstr | Text | 本文の過去リンク(flairでの検索)のテキスト
-footer | Markdown | 本文の最後
-flair | Text | ポストに追加されるflair(同一のflairがsubreddit内に作成されていなければならない)
-interval | Text | 次から選択、day、week、month
+title | Text | between /r/ and dates in title
+desc | Markdown | description in text after /r/
+linkstr | Text | label of flair link in text
+footer | Markdown | footer in text
+flair | Text | fair text existed already in a list of subreddit flairs
+interval | Text | choose from "day", "week" and "month" (not included quotation)
 
 ##run and post sticky
 ```bash
