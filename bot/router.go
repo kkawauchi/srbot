@@ -40,7 +40,7 @@ type Context struct {
 const text = `
 /r/%s%s
 
-[%s](http://www.reddit.com/r/%s/search?sort=new&restrict_sr=on&q=flair:%s)
+[%s](/r/%s/search?%s)
 
 %s
 `
@@ -167,35 +167,41 @@ func (c *Context) sticky() error {
 		return err
 	}
 	c.title = j.DATA.Content_md
+	c.logDebug("title: " + j.DATA.Content_md + "\n")
 
 	err = c.get(api_r+c.subreddit+"/wiki/bot/sticky/desc", &j)
 	if err != nil {
 		return err
 	}
 	c.text_desc = j.DATA.Content_md
+	c.logDebug("desc: " + j.DATA.Content_md + "\n")
 
 	err = c.get(api_r+c.subreddit+"/wiki/bot/sticky/linkstr", &j)
 	if err != nil {
 		return err
 	}
 	c.text_linkstr = j.DATA.Content_md
+	c.logDebug("linkstr: " + j.DATA.Content_md + "\n")
 
 	err = c.get(api_r+c.subreddit+"/wiki/bot/sticky/footer", &j)
 	if err != nil {
 		return err
 	}
 	c.text_footer = j.DATA.Content_md
+	c.logDebug("footer: " + j.DATA.Content_md + "\n")
 
 	err = c.get(api_r+c.subreddit+"/wiki/bot/sticky/flair", &j)
 	if err != nil {
 		return err
 	}
 	c.flair = j.DATA.Content_md
+	c.logDebug("flair: " + j.DATA.Content_md + "\n")
 
 	err = c.get(api_r+c.subreddit+"/wiki/bot/sticky/interval", &j)
 	if err != nil {
 		return err
 	}
+	c.logDebug("interval: " + j.DATA.Content_md + "\n")
 	switch j.DATA.Content_md {
 	case "month":
 		c.interval = post_per_month
@@ -300,8 +306,13 @@ func (c *Context) submit(v *ReqSubmit) error {
 	default:
 		v.title = fmt.Sprintf("/r/%s %s %d年%d月%d日", c.subreddit, c.title, y, int(m), d)
 	}
-
-	v.text = fmt.Sprintf(text, c.subreddit, c.text_desc, c.text_linkstr, c.subreddit, c.flair, c.text_footer)
+	data := url.Values{
+		"sort":        {"new"},
+		"restrict_sr": {"on"},
+		"q":           {"flair:" + c.flair},
+	}.Encode()
+	v.text = fmt.Sprintf(text, c.subreddit, c.text_desc, c.text_linkstr, c.subreddit, data, c.text_footer)
+	//c.logDebug(v.text)
 	return nil
 }
 
