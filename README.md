@@ -8,8 +8,9 @@
 go get -u github.com/uub/srbot
 ```
 ##create wiki pages
+create wiki pages on subreddit respectively by the feature
 
-####Sticky
+###sticky
 https://www.reddit.com/r/SUBREDDIT_NAME/wiki/bot/sticky/PAGE_NAME
 
 PAGE_NAME | format | description
@@ -45,7 +46,7 @@ handlers:
   secure: always
 ```
 
-cron.yaml:
+example of cron.yaml that works once a week:
 ```yaml
 cron:
 - description: SOME_DESCRIPTION
