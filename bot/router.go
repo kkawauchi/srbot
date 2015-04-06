@@ -40,7 +40,6 @@ type Context struct {
 const text = `
 /r/%s%s
 
-
 [%s](http://www.reddit.com/r/%s/search?sort=new&restrict_sr=on&q=flair:%s)
 
 %s
